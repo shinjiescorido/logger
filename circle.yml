@@ -1,0 +1,20 @@
+machine:
+  node:
+    version: 0.12.4
+
+dependencies:
+  override:
+    - npm install
+
+test:
+  override:
+
+    # Detect errors and potential problems
+    - npm run eslint -- --reset --eslintrc ./
+    - npm run jscs -- ./
+
+    # Check packages with known and public vulnerable dependencies
+    - npm run nsp -- audit-package
+
+    # Run available tests
+    - npm test

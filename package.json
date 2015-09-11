@@ -1,0 +1,45 @@
+{
+  "name": "@sinet/logger",
+  "version": "1.0.0",
+  "description": "Default logger setup using Winston",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "eslint",
+    "gulp": "gulp",
+    "jscs": "jscs",
+    "lint": "npm run eslint -- --reset --eslintrc ./ && npm run jscs -- ./",
+    "mocha": "mocha",
+    "nsp": "nsp",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/School-Improvement-Network/logger.git"
+  },
+  "author": "School Improvement Network",
+  "license": "(c) School Improvement Network",
+  "bugs": {
+    "url": "https://github.com/School-Improvement-Network/logger/issues"
+  },
+  "homepage": "https://github.com/School-Improvement-Network/logger#readme",
+  "devDependencies": {
+    "@sinet/coverage-enforcement": "^1.2.0",
+    "del": "^2.0.2",
+    "eslint": "^0.24.1",
+    "gulp": "^3.9.0",
+    "gulp-istanbul": "^0.10.0",
+    "gulp-mocha": "^2.1.3",
+    "jscs": "^1.13.1",
+    "mocha": "^2.3.2",
+    "nsp": "^1.1.0",
+    "require-new": "^1.1.0",
+    "rewire": "^2.3.4",
+    "should": "^7.1.0",
+    "sinet-coding-conventions": "^1.31.5",
+    "sinon": "^1.16.1"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "winston": "^1.0.1"
+  }
+}
