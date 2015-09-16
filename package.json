@@ -1,6 +1,6 @@
 {
   "name": "@sinet/logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Default logger setup using Winston",
   "main": "index.js",
   "scripts": {
