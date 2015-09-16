@@ -50,7 +50,7 @@ describe( 'Additional fields', function () {
 
 		it( 'should have additional default properties', function () {
 			should( result[ 2 ] ).have.property( 'hostname' ).be.type( 'string' ).equal( hostname );
-			should( result[ 2 ] ).have.property( 'dockerhost' ).be.type( 'string' ).equal( 'undefined' );
+			should( result[ 2 ] ).have.property( 'dockerhost' ).be.type( 'string' );
 		} );
 	} );
 
@@ -68,7 +68,7 @@ describe( 'Additional fields', function () {
 
 		it( 'should merge object with default properties', function () {
 			should( result[ 1 ] ).have.property( 'hostname' ).be.type( 'string' ).equal( hostname );
-			should( result[ 1 ] ).have.property( 'dockerhost' ).be.type( 'string' ).equal( 'undefined' );
+			should( result[ 1 ] ).have.property( 'dockerhost' ).be.type( 'string' );
 			should( result[ 1 ] ).have.property( 'a' ).be.type( 'string' ).equal( 'b' );
 		} );
 	} );
@@ -91,7 +91,7 @@ describe( 'Additional fields', function () {
 
 		it( 'should merge object with default properties', function () {
 			should( result[ 2 ] ).have.property( 'hostname' ).be.type( 'string' ).equal( hostname );
-			should( result[ 2 ] ).have.property( 'dockerhost' ).be.type( 'string' ).equal( 'undefined' );
+			should( result[ 2 ] ).have.property( 'dockerhost' ).be.type( 'string' );
 			should( result[ 2 ] ).have.property( 'a' ).be.type( 'string' ).equal( 'b' );
 		} );
 	} );

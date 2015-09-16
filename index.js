@@ -25,7 +25,7 @@ function setConfigs ( options ) {
 
 		'additional' : {
 			'hostname'   : os.hostname(),
-			'dockerhost' : process.env.DOCKERHOST || 'undefined'
+			'dockerhost' : process.env.DOCKER_HOST || 'undefined'
 		}
 	};
 

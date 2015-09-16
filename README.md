@@ -29,7 +29,7 @@ var options = {
 
 		// The items below are defaults added by the library automatically
 		'hostname'   : os.hostname(),
-		'dockerhost' : process.env.DOCKERHOST || 'undefined'
+		'dockerhost' : process.env.DOCKER_HOST || 'undefined'
 	}
 };
 
