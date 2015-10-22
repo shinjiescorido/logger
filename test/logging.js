@@ -2,11 +2,9 @@
 
 /* eslint no-underscore-dangle:0 */
 
-var rewire     = require( 'rewire' );
-var should     = require( 'should' );
-var os         = require( 'os' );
-
-require( 'should' );
+var rewire = require( 'rewire' );
+var should = require( 'should' );
+var os     = require( 'os' );
 
 describe( 'Additional fields', function () {
 	var hostname = os.hostname();

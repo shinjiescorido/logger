@@ -1,31 +1,45 @@
 'use strict';
 
 var requireNew = require( 'require-new' );
+var should     = require( 'should' );
 
-require( 'should' );
-
-describe( 'Invalid config', function () {
-
+describe( 'No transports defined', function () {
 	var error;
 
 	before( function ( done ) {
 		try {
 			requireNew( '../' )();
-
 		} catch ( e ) {
 			error = e;
 			done();
 		}
-
 	} );
 
 	it( 'should throw error', function () {
-		error.message.should.be.of.type( 'string' ).and.equal( 'options.file.filename is required' );
+		error.message.should.be.of.type( 'string' ).and.equal( 'Cannot log with no transports.' );
 	} );
-
 } );
 
-describe( 'Standard config', function () {
+describe( 'Winston error missing filename for log file', function () {
+	var error;
+
+	before( function ( done ) {
+		try {
+			requireNew( '../' )( {
+				'file' : {}
+			} );
+		} catch ( e ) {
+			error = e;
+			done();
+		}
+	} );
+
+	it( 'should throw error', function () {
+		error.message.should.be.of.type( 'string' ).and.equal( 'Cannot log to file without filename or stream.' );
+	} );
+} );
+
+describe( 'Config with file option', function () {
 	var logger;
 
 	before( function ( done ) {
@@ -37,21 +51,14 @@ describe( 'Standard config', function () {
 
 		logger = requireNew( '../' )( options );
 		done();
-
-	} );
-
-	it( 'should have default console settings', function () {
-		logger.transports.console.level.should.be.of.type( 'string' ).and.equal( 'error' );
 	} );
 
 	it( 'should have default file settings', function () {
 		logger.transports.file.filename.should.be.of.type( 'string' ).and.equal( 'logs.log' );
-		logger.transports.file.level.should.be.of.type( 'string' ).and.equal( 'error' );
 		logger.transports.file.logstash.should.be.of.type( 'boolean' ).and.equal( true );
 		logger.transports.file.maxsize.should.be.of.type( 'number' ).and.equal( 15000000 );
 		logger.transports.file.tailable.should.be.of.type( 'boolean' ).and.equal( false );
 	} );
-
 } );
 
 describe( 'Custom config', function () {
@@ -73,7 +80,6 @@ describe( 'Custom config', function () {
 
 		logger = requireNew( '../' )( options );
 		done();
-
 	} );
 
 	it( 'should merge with default console settings', function () {
@@ -89,3 +95,104 @@ describe( 'Custom config', function () {
 	} );
 
 } );
+
+describe( 'Config on development mode environment', function () {
+	var logger;
+
+	before( function ( done ) {
+		var options = {
+			'file' : {
+				'enabled'  : [ 'production' ],
+				'filename' : 'test.log',
+				'level'    : 'silly',
+				'maxsize'  : 100,
+				'tailable' : true
+			},
+
+			'console' : {
+				'enabled' : [ 'development' ],
+				'level'   : 'debug'
+			}
+		};
+
+		process.env.NODE_ENV = 'development';
+
+		logger = requireNew( '../' )( options );
+		done();
+	} );
+
+	it( 'should only have console as transport mode on development', function () {
+		logger.transports.console.should.be.of.type( 'object' );
+		logger.transports.console.log.should.be.of.type( 'function' );
+
+		should.not.exist( logger.transports.file );
+	} );
+} );
+
+describe( 'Config on production environment', function () {
+	var logger;
+
+	before( function ( done ) {
+		var options = {
+			'file' : {
+				'enabled'  : [ 'production' ],
+				'filename' : 'test.log',
+				'level'    : 'silly',
+				'maxsize'  : 100,
+				'tailable' : true
+			},
+
+			'console' : {
+				'enabled' : [ 'development' ],
+				'level'   : 'debug'
+			}
+		};
+
+		process.env.NODE_ENV = 'production';
+
+		logger = requireNew( '../' )( options );
+		done();
+	} );
+
+	it( 'should only have file as transport mode on production', function () {
+		logger.transports.file.should.be.of.type( 'object' );
+		logger.transports.file.log.should.be.of.type( 'function' );
+
+		should.not.exist( logger.transports.console );
+	} );
+} );
+
+describe( 'Config on undefined environment', function () {
+	var error;
+
+	before( function ( done ) {
+		var options = {
+			'file' : {
+				'enabled'  : [ 'production' ],
+				'filename' : 'test.log',
+				'level'    : 'silly',
+				'maxsize'  : 100,
+				'tailable' : true
+			},
+
+			'console' : {
+				'enabled' : [ 'development' ],
+				'level'   : 'debug'
+			}
+		};
+
+		process.env.NODE_ENV = undefined;
+
+		try {
+			requireNew( '../' )( options );
+		} catch ( e ) {
+			error = e;
+			done();
+		}
+	} );
+
+	it( 'should throw error', function () {
+		error.message.should.be.of.type( 'string' ).and.equal( 'Cannot log with no transports.' );
+	} );
+} );
+

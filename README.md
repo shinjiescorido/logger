@@ -1,4 +1,4 @@
-# Git Refs
+# Logger
 [![Build Status][ci-badge]][ci-badge-link]
 [![Dependency Status][david-badge]][david-badge-link]
 [![devDependency Status][david-dev-badge]][david-dev-badge-link]
@@ -16,11 +16,20 @@ npm install @sinet/logger --save
 // Options are for winston transports, file and console
 var options = {
 	'file' : {
+		// File transport is enabled on development and production environment
+		'enabled'  : [ 'development', 'production' ],
 		'filename' : 'logs/myLogFile.log',
 	},
 
 	'console' : {
-		'level' : 'debug'
+		// Console transport is enabled only in development environment
+		'enabled' : [ 'development' ],
+		'level'   : 'debug'
+	},
+
+	'logstash' : {
+		'enabled' : [ 'production' ],
+		'port'    : 9563
 	},
 
 	// These are additional fields that get added to all logs
@@ -37,6 +46,21 @@ var logger = require( '@sinet/logger' )( options );
 
 logger.error( 'error message', { 'method': 'v1.users.get', 'payload', payload } );
 ```
+
+## FAQs
+
+1. What happens when I add a `file` or `console` option without setting the `enabled` property?
+```javascript
+// Example
+var options = {
+	'file'    : {},
+	'console' : {}
+}
+```
+
+Answer:
+If `file` and/or `console` is explicitly provided without setting the enabled property it will log in any environment.
+
 
 ## Contributing
 All pull requests must follow [coding conventions and standards](https://github.com/School-Improvement-Network/coding-conventions).
