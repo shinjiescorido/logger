@@ -14,7 +14,7 @@ test:
     - npm run jscs -- ./
 
     # Check packages with known and public vulnerable dependencies
-    - npm run nsp -- audit-package
+    - npm run nsp -- check
 
     # Run available tests
     - npm test
