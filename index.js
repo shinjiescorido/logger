@@ -95,15 +95,15 @@ function setTransports ( options ) {
 function getLogger ( options ) {
 	var transports = setTransports( options );
 
-	if ( transports.length < 1 ) {
-		throw new Error( 'Cannot log with no transports.' );
-	}
-
 	logger = new winston.Logger( {
 		'transports' : transports
 	} );
 
 	logger.log = function () {
+		if ( transports.length < 1 ) {
+			logger.emit( 'error', new Error( 'No transports defined. Cannot produce logs.' ) );
+		}
+
 		var args = Array.prototype.slice.call( arguments );
 
 		// If append the additional data

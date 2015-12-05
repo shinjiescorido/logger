@@ -4,19 +4,20 @@ var requireNew = require( 'require-new' );
 var should     = require( 'should' );
 
 describe( 'No transports defined', function () {
+	var logger;
 	var error;
 
 	before( function ( done ) {
-		try {
-			requireNew( '../' )();
-		} catch ( e ) {
-			error = e;
+		logger = requireNew( '../' )();
+		logger.on( 'error', function ( err ) {
+			error = err;
 			done();
-		}
+		} );
+		logger.log( 'Test log' );
 	} );
 
 	it( 'should throw error', function () {
-		error.message.should.be.of.type( 'string' ).and.equal( 'Cannot log with no transports.' );
+		error.message.should.be.of.type( 'string' ).and.equal( 'No transports defined. Cannot produce logs.' );
 	} );
 } );
 
@@ -163,6 +164,7 @@ describe( 'Config on production environment', function () {
 } );
 
 describe( 'Config on undefined environment', function () {
+	var logger;
 	var error;
 
 	before( function ( done ) {
@@ -183,16 +185,16 @@ describe( 'Config on undefined environment', function () {
 
 		process.env.NODE_ENV = undefined;
 
-		try {
-			requireNew( '../' )( options );
-		} catch ( e ) {
-			error = e;
+		logger = requireNew( '../' )( options );
+		logger.on( 'error', function ( err ) {
+			error = err;
 			done();
-		}
+		} );
+		logger.log( 'Test log' );
 	} );
 
 	it( 'should throw error', function () {
-		error.message.should.be.of.type( 'string' ).and.equal( 'Cannot log with no transports.' );
+		error.message.should.be.of.type( 'string' ).and.equal( 'No transports defined. Cannot produce logs.' );
 	} );
 } );
 
