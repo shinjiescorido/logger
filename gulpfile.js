@@ -3,13 +3,13 @@
 /* eslint no-process-exit:0 */
 
 // load third party modules
-var del         = require( 'del' );
-var gulp        = require( 'gulp' );
-var mocha       = require( 'gulp-mocha' );
-var istanbul    = require( 'gulp-istanbul' );
-var enforcement = require( '@sinet/coverage-enforcement' );
+const del         = require( 'del' );
+const gulp        = require( 'gulp' );
+const mocha       = require( 'gulp-mocha' );
+const istanbul    = require( 'gulp-istanbul' );
+const enforcement = require( '@sinet/coverage-enforcement' );
 
-var paths = {
+const paths = {
 	'cover' : [
 
 		// Include everything to be covered
@@ -33,9 +33,9 @@ gulp.task( 'clean-coverage', function () {
 } );
 
 gulp.task( 'test', [ 'clean-coverage' ], function () {
-	var covEnforcerOpts = { 'thresholds' : enforcement.thresholds };
+	const covEnforcerOpts = { 'thresholds' : enforcement.thresholds };
 
-	var mochaOptions = {
+	const mochaOptions = {
 		'ui'       : 'bdd',
 		'reporter' : 'spec',
 		'bail'     : true,
@@ -47,7 +47,6 @@ gulp.task( 'test', [ 'clean-coverage' ], function () {
 		.pipe( istanbul.hookRequire() )
 
 		.on( 'finish', function () {
-
 			gulp.src( paths.test, { 'read' : false } )
 
 				.pipe(
@@ -86,5 +85,4 @@ gulp.task( 'test', [ 'clean-coverage' ], function () {
 					process.exit();
 				} );
 		} );
-
 } );

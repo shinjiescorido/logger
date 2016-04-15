@@ -2,26 +2,25 @@
 
 /* eslint no-underscore-dangle:0 */
 
-var rewire = require( 'rewire' );
-var should = require( 'should' );
-var os     = require( 'os' );
+const rewire = require( 'rewire' );
+const should = require( 'should' );
+const os     = require( 'os' );
 
 describe( 'Additional fields', function () {
-	var hostname = os.hostname();
-	var logger;
-	var result;
+	const hostname = os.hostname();
+	let logger, result;
 
 	before( function ( done ) {
-		var rewireLogger = rewire( '../' );
+		let rewireLogger = rewire( '../' );
 
-		var winstonMock = function () {
+		const winstonMock = function () {
 			result = arguments;
 			return;
 		};
 
 		rewireLogger.__set__( 'winston.Logger.prototype.log', winstonMock );
 
-		var options = {
+		const options = {
 			'file' : {
 				'filename' : 'test/logs.log'
 			}
@@ -54,7 +53,8 @@ describe( 'Additional fields', function () {
 
 	describe( 'Only object as message', function () {
 		before( function ( done ) {
-			var a = { 'a' : 'b' };
+			const a = { 'a' : 'b' };
+
 			logger.error( a );
 			done();
 		} );
@@ -73,7 +73,8 @@ describe( 'Additional fields', function () {
 
 	describe( 'String and object message', function () {
 		before( function ( done ) {
-			var a = { 'a' : 'b' };
+			const a = { 'a' : 'b' };
+
 			logger.error( 'test', a );
 			done();
 		} );
@@ -93,5 +94,4 @@ describe( 'Additional fields', function () {
 			should( result[ 2 ] ).have.property( 'a' ).be.type( 'string' ).equal( 'b' );
 		} );
 	} );
-
 } );

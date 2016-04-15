@@ -1,20 +1,20 @@
 'use strict';
 
-var _       = require( 'lodash' );
-var winston = require( 'winston' );
-var os      = require( 'os' );
+const _       = require( 'lodash' );
+const winston = require( 'winston' );
+const os      = require( 'os' );
 
 // Logstash plugin
 require( 'winston-logstash' );
 
 // Logger placeholder
-var logger;
+let logger;
 
 function setConfigs ( options ) {
 	options = options || {};
 
 	// By default, file and console logs are disabled.
-	var defaultEnabledOptions = {
+	let defaultEnabledOptions = {
 		'file' : {
 			'enabled' : []
 		},
@@ -28,7 +28,7 @@ function setConfigs ( options ) {
 		}
 	};
 
-	var defaultOptions = {
+	const defaultOptions = {
 		'file' : {
 			'logstash' : true,
 			'maxsize'  : 15000000
@@ -52,8 +52,8 @@ function setConfigs ( options ) {
 }
 
 function setTransports ( options ) {
-	var env = process.env;
-	var nodenv;
+	const env = process.env;
+	let nodenv;
 
 	if ( env.NODE_ENV ) {
 		nodenv = env.NODE_ENV.toLowerCase();
@@ -62,28 +62,31 @@ function setTransports ( options ) {
 	}
 
 	// Log output stream config -> Winston transport module name
-	var modes = {
+	let modes = {
 		'file'     : 'File',
 		'console'  : 'Console',
 		'logstash' : 'Logstash'
 	};
 
-	var transports = _.map( Object.keys( modes ), function ( out ) {
-		var mode = modes[ out ];
+	const transports = _.map( Object.keys( modes ), function ( out ) {
+		const mode = modes[ out ];
 
 		// By default, if an out stream config is present but
 		// `enabled` option is not set it will run in any environment.
 		if ( !options[ out ].enabled ) {
+			/* eslint no-extra-parens:0 */
 			return new ( winston.transports[ mode ] )( options[ out ] );
 		}
 
 		if ( options[ out ].enabled.indexOf( nodenv ) !== -1 ) {
+			/* eslint no-extra-parens:0 */
 			return new ( winston.transports[ mode ] )( options[ out ] );
 		}
 	} );
 
 	function stripUndefined ( array ) {
 		return _.filter( array, function ( item ) {
+			/* eslint no-extra-parens:0 */
 			return ( item !== undefined );
 		} );
 	}
@@ -93,10 +96,10 @@ function setTransports ( options ) {
 
 // Returns a modified Winston logger instance
 function getLogger ( options ) {
-	var transports = setTransports( options );
+	const transports = setTransports( options );
 
 	logger = new winston.Logger( {
-		'transports' : transports
+		transports
 	} );
 
 	logger.log = function () {
@@ -104,10 +107,10 @@ function getLogger ( options ) {
 			logger.emit( 'error', new Error( 'No transports defined. Cannot produce logs.' ) );
 		}
 
-		var args = Array.prototype.slice.call( arguments );
+		let args = Array.prototype.slice.call( arguments );
 
 		// If append the additional data
-		var lastItem = args[ args.length - 1 ];
+		let lastItem = args[ args.length - 1 ];
 
 		if ( typeof lastItem === 'object' && !Array.isArray( lastItem ) ) {
 			lastItem = _.defaultsDeep( lastItem, options.additional );

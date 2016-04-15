@@ -1,11 +1,10 @@
 'use strict';
 
-var requireNew = require( 'require-new' );
-var should     = require( 'should' );
+const requireNew = require( 'require-new' );
+const should     = require( 'should' );
 
 describe( 'No transports defined', function () {
-	var logger;
-	var error;
+	let logger, error;
 
 	before( function ( done ) {
 		logger = requireNew( '../' )();
@@ -22,7 +21,7 @@ describe( 'No transports defined', function () {
 } );
 
 describe( 'Winston error missing filename for log file', function () {
-	var error;
+	let error;
 
 	before( function ( done ) {
 		try {
@@ -41,10 +40,10 @@ describe( 'Winston error missing filename for log file', function () {
 } );
 
 describe( 'Config with file option', function () {
-	var logger;
+	let logger;
 
 	before( function ( done ) {
-		var options = {
+		let options = {
 			'file' : {
 				'filename' : 'logs.log'
 			}
@@ -63,10 +62,10 @@ describe( 'Config with file option', function () {
 } );
 
 describe( 'Custom config', function () {
-	var logger;
+	let logger;
 
 	before( function ( done ) {
-		var options = {
+		let options = {
 			'file' : {
 				'filename' : 'test.log',
 				'level'    : 'silly',
@@ -94,14 +93,13 @@ describe( 'Custom config', function () {
 		logger.transports.file.maxsize.should.be.of.type( 'number' ).and.equal( 100 );
 		logger.transports.file.tailable.should.be.of.type( 'boolean' ).and.equal( true );
 	} );
-
 } );
 
 describe( 'Config on development mode environment', function () {
-	var logger;
+	let logger;
 
 	before( function ( done ) {
-		var options = {
+		let options = {
 			'file' : {
 				'enabled'  : [ 'production' ],
 				'filename' : 'test.log',
@@ -131,10 +129,10 @@ describe( 'Config on development mode environment', function () {
 } );
 
 describe( 'Config on production environment', function () {
-	var logger;
+	let logger;
 
 	before( function ( done ) {
-		var options = {
+		let options = {
 			'file' : {
 				'enabled'  : [ 'production' ],
 				'filename' : 'test.log',
@@ -164,11 +162,10 @@ describe( 'Config on production environment', function () {
 } );
 
 describe( 'Config on undefined environment', function () {
-	var logger;
-	var error;
+	let logger, error;
 
 	before( function ( done ) {
-		var options = {
+		let options = {
 			'file' : {
 				'enabled'  : [ 'production' ],
 				'filename' : 'test.log',

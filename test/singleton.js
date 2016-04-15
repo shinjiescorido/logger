@@ -3,16 +3,16 @@
 require( 'should' );
 
 describe( 'Require singleton', function () {
-	var logger;
+	let logger;
 
 	before( function ( done ) {
-		var options = {
+		const options = {
 			'file' : {
 				'filename' : 'logs.log'
 			}
 		};
 
-		var options2 = {
+		const options2 = {
 			'file' : {
 				'filename' : 'test.log',
 				'level'    : 'silly',
@@ -31,7 +31,6 @@ describe( 'Require singleton', function () {
 		// Require again to get singleton new options won't be used
 		logger = require( '../' )( options2 );
 		done();
-
 	} );
 
 	it( 'should provide singleton with original config', function () {
@@ -40,5 +39,4 @@ describe( 'Require singleton', function () {
 		logger.transports.file.maxsize.should.be.of.type( 'number' ).and.equal( 15000000 );
 		logger.transports.file.tailable.should.be.of.type( 'boolean' ).and.equal( false );
 	} );
-
 } );
