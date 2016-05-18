@@ -194,4 +194,3 @@ describe( 'Config on undefined environment', function () {
 		error.message.should.be.of.type( 'string' ).and.equal( 'No transports defined. Cannot produce logs.' );
 	} );
 } );
-

@@ -22,6 +22,10 @@
     "url": "https://github.com/sinet/logger/issues"
   },
   "homepage": "https://github.com/sinet/logger#readme",
+  "files": [
+    "lib/"
+  ],
+  "main": "lib/index.js",
   "devDependencies": {
     "@sinet/coding-conventions": "^2.1.1",
     "@sinet/coverage-enforcement": "^1.2.0",
