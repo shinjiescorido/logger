@@ -63,12 +63,12 @@ If `file` and/or `console` is explicitly provided without setting the enabled pr
 
 
 ## Contributing
-All pull requests must follow [coding conventions and standards](https://github.com/School-Improvement-Network/coding-conventions).
+All pull requests must follow [coding conventions and standards](https://github.com/sinet/coding-conventions).
 
-[david-badge]: https://david-dm.org/School-Improvement-Network/logger.svg
-[david-badge-link]: https://david-dm.org/School-Improvement-Network/logger
-[david-dev-badge]: https://david-dm.org/School-Improvement-Network/logger/dev-status.svg
-[david-dev-badge-link]: https://david-dm.org/School-Improvement-Network/logger
-[david-dev-badge-link]: https://david-dm.org/School-Improvement-Network/logger#info=devDependencies
-[ci-badge]: https://circleci.com/gh/School-Improvement-Network/logger.svg?style=shield
-[ci-badge-link]: https://circleci.com/gh/School-Improvement-Network/logger
+[david-badge]: https://david-dm.org/sinet/logger.svg
+[david-badge-link]: https://david-dm.org/sinet/logger
+[david-dev-badge]: https://david-dm.org/sinet/logger/dev-status.svg
+[david-dev-badge-link]: https://david-dm.org/sinet/logger
+[david-dev-badge-link]: https://david-dm.org/sinet/logger#info=devDependencies
+[ci-badge]: https://circleci.com/gh/sinet/logger.svg?style=shield
+[ci-badge-link]: https://circleci.com/gh/sinet/logger
